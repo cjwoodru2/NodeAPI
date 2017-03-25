@@ -1,6 +1,6 @@
 var mongoose = require("mongoose");
 
-var ProjectItems = mongoose.model('Item', {
+var ProjectItem = mongoose.model('Item', {
     projectName: {
         type: String,
         required: true
@@ -20,4 +20,4 @@ var ProjectItems = mongoose.model('Item', {
     }
 });
 
-module.exports  = { ProjectItems };
+module.exports  = { ProjectItem };
