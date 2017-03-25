@@ -18,12 +18,14 @@ app.post('/projects', (req, res) => {
     });
     
     proj.save((proj) => {
-        res.send(proj)
+       return res.send(proj)
     }, (e) => {
-        res.status(400).send(e);
+        res.send(e);
     })
 })
 
 app.listen(process.env.PORT, process.env.IP, () => {
     console.log('API Server is live!');
 });
+
+module.exports = { app };
