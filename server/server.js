@@ -18,11 +18,19 @@ app.post('/projects', (req, res) => {
     });
     
     proj.save((proj) => {
-       return res.send(proj)
+       res.send({proj})
     }, (e) => {
         res.send(e);
-    })
-})
+    });
+});
+
+app.get('/projects', (req, res) => {
+    ProjectItem.find().then((projects) => {
+        res.send({projects});
+    }, (e) => {
+        res.send(e)
+    }) 
+});
 
 app.listen(process.env.PORT, process.env.IP, () => {
     console.log('API Server is live!');

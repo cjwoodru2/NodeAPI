@@ -15,7 +15,7 @@ const projectModelTest = new ProjectItem({
     projectLink: "test.com/link"
 })
 // test
-describe('Post /todos', () => {
+describe('POST /todos', () => {
     it('should create a new project', (done) => {
         
         request(app)
