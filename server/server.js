@@ -1,9 +1,10 @@
 var express = require("express");
 var bodyParser = require("body-parser")
+var { ObjectID } = require("mongodb");
 
-var mongoose = require("./db/mongoose");
-var { User } = require("./models/user")
-var { ProjectItem } = require("./models/project")
+const mongoose = require("./db/mongoose");
+const { User } = require("./models/user")
+const { ProjectItem } = require("./../server/models/project");
 
 var app = express();
 
@@ -31,6 +32,33 @@ app.get('/projects', (req, res) => {
         res.send(e)
     }) 
 });
+
+app.get('/projects/:id', (req, res) => {
+    var id = req.params.id
+    
+    // validate ID
+    if(!ObjectID.isValid(id)) {
+        // Stop exec and respond with 404 error with emply body
+        console.log('That is not a valid ID')
+        res.status(404).send()
+    }
+        
+    // findByID to query DB for ID
+    ProjectItem.findById(id).then((project) => {
+        // Success case
+        if (!project) {
+            // if project - send it back
+            return res.status(404).send()
+        } 
+        
+        // if project - send it back
+        res.send({ project } )
+        // Error case
+    }).catch((e) => {
+        res.status(400).send()
+    })
+        
+})
 
 app.listen(process.env.PORT, process.env.IP, () => {
     console.log('API Server is live!');
