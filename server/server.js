@@ -1,6 +1,8 @@
-var express = require("express");
-var bodyParser = require("body-parser");
-var { ObjectID } = require("mongodb");
+const _ = require("lodash");
+const express = require("express");
+const bodyParser = require("body-parser");
+const { ObjectID } = require("mongodb");
+
 
 const mongoose = require("./db/mongoose");
 const { User } = require("./models/user");
@@ -95,6 +97,13 @@ app.delete('/projects/:id', (req, res) => {
         res.status(400).send();
     });
         
+});
+
+// *****************************
+// UPDATE ROUTE - PROJECTS BY ID
+app.patch('/projects/:id', (req, res) => {
+   var id = req.body.params.id ;
+   
 });
 
 app.listen(process.env.PORT, process.env.IP, () => {
