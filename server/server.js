@@ -75,7 +75,7 @@ app.delete('/projects/:id', (req, res) => {
     var id = req.params.id;
     
     // validate ID
-    if(!    ObjectID.isValid(id)) {
+    if(!ObjectID.isValid(id)) {
         // Stop exec and respond with 404 error with emply body
         console.log('That is not a valid ID');
         return res.status(404).send();
@@ -102,8 +102,26 @@ app.delete('/projects/:id', (req, res) => {
 // *****************************
 // UPDATE ROUTE - PROJECTS BY ID
 app.patch('/projects/:id', (req, res) => {
-   var id = req.body.params.id ;
-   
+    var id = req.body.params.id ;
+    var body = _.pick(req.body, ['projectName', 'projectDescription', 'projectImage', 'projectLink']);
+    
+    // validate ID
+    if(!ObjectID.isValid(id)) {
+        // Stop exec and respond with 404 error with emply body
+        console.log('That is not a valid ID');
+        return res.status(404).send();
+    }
+    
+    ProjectItem.findByIdAndUpdate(id, { $set: body }, { new:true }).then((project) => {
+        if (!project) {
+            return res.status(404).send();
+        }
+        
+        res.send({project})
+    }).catch((e) => {
+        res.status(404).send();
+    })
+     
 });
 
 app.listen(process.env.PORT, process.env.IP, () => {
