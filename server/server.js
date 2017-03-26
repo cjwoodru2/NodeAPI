@@ -102,7 +102,7 @@ app.delete('/projects/:id', (req, res) => {
 // *****************************
 // UPDATE ROUTE - PROJECTS BY ID
 app.patch('/projects/:id', (req, res) => {
-    var id = req.body.params.id ;
+    var id = req.params.id ;
     var body = _.pick(req.body, ['projectName', 'projectDescription', 'projectImage', 'projectLink']);
     
     // validate ID
