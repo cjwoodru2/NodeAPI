@@ -6,7 +6,9 @@ const { User } = require("./../server/models/user");
 
 // ProjectItem.remove({}).then((result) => {
 //   console.log(result);
-// })
+// });
+
+
 
 // ProjectItem.findOneAndRemove
 // ProjectItem.findByIdAndRemove
