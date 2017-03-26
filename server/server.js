@@ -10,6 +10,8 @@ var app = express();
 
 app.use(bodyParser.json());
 
+// *********************
+// POST ROUTE - PROJECTS
 app.post('/projects', (req, res) => {
     var proj = new ProjectItem({
         projectName: req.body.name,
@@ -25,6 +27,8 @@ app.post('/projects', (req, res) => {
     });
 });
 
+// *********************
+// GET ROUTE - PROJECTS
 app.get('/projects', (req, res) => {
     ProjectItem.find().then((projects) => {
         res.send({projects});
@@ -33,6 +37,9 @@ app.get('/projects', (req, res) => {
     }) 
 });
 
+
+// **************************
+// GET ROUTE - PROJECTS BY ID
 app.get('/projects/:id', (req, res) => {
     var id = req.params.id
     
@@ -59,6 +66,8 @@ app.get('/projects/:id', (req, res) => {
     })
         
 })
+
+
 
 app.listen(process.env.PORT, process.env.IP, () => {
     console.log('API Server is live!');
