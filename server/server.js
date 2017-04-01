@@ -1,7 +1,3 @@
-const env = process.env.NODE_ENV;
-
-
-
 const _ = require("lodash");
 const express = require("express");
 const bodyParser = require("body-parser");
@@ -16,6 +12,19 @@ var app = express();
 
 app.use(bodyParser.json());
 
+
+// *********************
+// POST ROUTE - USER
+app.post('/users', (req, res) => {
+    var body = _.pick(req.body, ['email', 'password'])
+    var user = new User(body)
+    
+    user.save().then((user) => {
+        res.send(user)
+    }, (e) => {
+        res.send(e);
+    })
+})
 // *********************
 // POST ROUTE - PROJECTS
 app.post('/projects', (req, res) => {
@@ -26,7 +35,7 @@ app.post('/projects', (req, res) => {
         projectLink: req.body.link
     });
     
-    proj.save((proj) => {
+    proj.save().then((proj) => {
        res.send({proj});
     }, (e) => {
         res.send(e);
